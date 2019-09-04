@@ -17,11 +17,8 @@ services:
       MYSQL_DATABASE: service
       MYSQL_USER: user
       MYSQL_PASSWORD: password
-      MYSQL_ROOT_PASSWORD: password
-      TZ: 'Asia/Tokyo'
-    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
-    volumes:
-      - ./docker/mysql:/var/lib/mysql
+      MYSQL_ROOT_PASSWORD: root
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci    
     ports:
       - 3306:3306
 
@@ -32,6 +29,8 @@ services:
       - PMA_ARBITRARY=1
       - PMA_HOSTS=mysql
       - PMA_USER=root
-      - PMA_PASSWORD=password
+      - PMA_PASSWORD=root
     ports:
       - 8080:80
+    links:
+      - mysql
